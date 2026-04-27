@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.*;
-
+package academic;
 public class Course {
 
     private int courseId;
