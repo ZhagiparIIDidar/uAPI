@@ -1,77 +1,55 @@
-
 import java.io.*;
 import java.util.*;
 
 /**
- * 
+ * Represents a scientific research paper.
  */
 public class ResearchPaper {
 
-    /**
-     * Default constructor
-     */
-    public ResearchPaper() {
+    private String title;
+    private List<String> authors = new ArrayList<>();
+    private String journal;
+    private Date date;
+    private String doi;
+    private int citations;
+    private int pages;
+
+    public ResearchPaper() {}
+
+    public ResearchPaper(String title, String journal, Date date, String doi, int citations, int pages) {
+        this.title = title;
+        this.journal = journal;
+        this.date = date;
+        this.doi = doi;
+        this.citations = citations;
+        this.pages = pages;
     }
 
-    /**
-     * 
-     */
-    public void title: String;
+    public String getTitle()              { return title; }
+    public void setTitle(String title)    { this.title = title; }
+    public List<String> getAuthors()      { return authors; }
+    public void addAuthor(String author)  { authors.add(author); }
+    public String getJournal()            { return journal; }
+    public void setJournal(String j)      { this.journal = j; }
+    public Date getDate()                 { return date; }
+    public void setDate(Date date)        { this.date = date; }
+    public String getDoi()                { return doi; }
+    public void setDoi(String doi)        { this.doi = doi; }
+    public void setCitations(int c)       { this.citations = c; }
+    public void setPages(int p)           { this.pages = p; }
 
-    /**
-     * 
-     */
-    public void authors: List;
-
-    /**
-     * 
-     */
-    public void journal: String;
-
-    /**
-     * 
-     */
-    public void date: Date;
-
-    /**
-     * DOI — это уникальный идентификатор научной статьи в интернете. Как ссылка но короткая, например:
-     * 10.1109/ACCESS.2022.123456
-     * По этому коду можно найти статью в любой научной базе
-     */
-    public void doi: String;
-
-    /**
-     * Citations — это количество раз когда другие учёные сослались на эту статью в своих работах. Чем больше citations — тем важнее и популярнее статья в науке.
-     * Именно из citations считается h-index исследователя — чем больше citations у его статей, тем выше h-index.
-     */
-    public void citations: int;
-
-    /**
-     * 
-     */
-    public void pages: int;
-
-
-
-    /**
-     * 
-     */
-    public void getCitations(): int() {
-        // TODO implement here
+    public int getCitations() {
+        return citations;
     }
 
-    /**
-     * 
-     */
-    public void getPages(): int() {
-        // TODO implement here
+    
+    public int getPages() {
+        return pages;
     }
 
-    /**
-     * 
-     */
-    public void toString(): String() {
-        // TODO implement here
+    @Override
+    public String toString() {
+        return String.format("ResearchPaper{title='%s', journal='%s', citations=%d, pages=%d, doi=%s}",
+                title, journal, citations, pages, doi);
     }
-
 }
