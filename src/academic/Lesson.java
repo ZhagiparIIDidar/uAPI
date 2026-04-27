@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.*;
-
+package academic;
 /**
  * Represents a single lesson within a course.
  */
