@@ -1,6 +1,12 @@
 import java.io.*;
 import java.util.*;
-
+import academic.Course;
+import academic.Mark;
+import research.ResearchPaper;
+import research.ResearchProject;
+import staff.Teacher;
+import research.Researcher;
+package users;
 /**
  * Represents a student in the university system.
  */
