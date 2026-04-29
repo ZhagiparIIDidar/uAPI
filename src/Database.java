@@ -1,13 +1,15 @@
-package patterns;
-
 import users.Student;
-import users.Employee;
+import users.User;
 import staff.Teacher;
 import staff.Manager;
 import staff.Admin;
+import staff.SuperAdmin;
 import academic.Course;
 import research.Researcher;
 import research.ResearchProject;
+import exceptions.*;
+
+import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +18,15 @@ import java.util.List;
  * Centralized storage for all entities in the university management system.
  * Ensures only one instance exists throughout the application.
  */
-public class DataStorage {
+public class DataBase {
 
-    private static DataStorage instance;
+    private static DataBase instance;
+
+    // Супер пользовотель
+    private Admin superAdmin = new Admin();
 
     // Все данные хранятся здесь
     private List<Student> students = new ArrayList<>();
-    private List<Employee> employees = new ArrayList<>();
     private List<Teacher> teachers = new ArrayList<>();
     private List<Course> courses = new ArrayList<>();
     private List<Manager> managers = new ArrayList<>();
@@ -33,16 +37,12 @@ public class DataStorage {
     /**
      * Private constructor to prevent instantiation from outside.
      */
-    private DataStorage() {}
+    private DataBase() {
+    }
 
-    /**
-     * Get the singleton instance of DataStorage.
-     *
-     * @return the single instance of DataStorage
-     */
-    public static DataStorage getInstance() {
+    public static DataBase getInstance() {
         if (instance == null)
-            instance = new DataStorage();
+            instance = new DataBase();
         return instance;
     }
 
@@ -51,182 +51,97 @@ public class DataStorage {
         return students;
     }
 
-    public void addStudent(Student student) {
-        students.add(student);
-    }
-
-    public void removeStudent(Student student) {
-        students.remove(student);
-    }
-
-    public Student findStudentById(int id) {
-        for (Student student : students) {
-            if (student.getId() == id)
-                return student;
-        }
-        return null;
-    }
-
-    // ===== Employees =====
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void addEmployee(Employee employee) {
-        employees.add(employee);
-    }
-
-    public void removeEmployee(Employee employee) {
-        employees.remove(employee);
-    }
-
-    public Employee findEmployeeById(int id) {
-        for (Employee employee : employees) {
-            if (employee.getId() == id)
-                return employee;
-        }
-        return null;
-    }
-
-    // ===== Teachers =====
     public List<Teacher> getTeachers() {
         return teachers;
     }
 
-    public void addTeacher(Teacher teacher) {
-        teachers.add(teacher);
-    }
-
-    public void removeTeacher(Teacher teacher) {
-        teachers.remove(teacher);
-    }
-
-    public Teacher findTeacherById(int id) {
-        for (Teacher teacher : teachers) {
-            if (teacher.getId() == id)
-                return teacher;
-        }
-        return null;
-    }
-
-    // ===== Courses =====
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-    public void addCourse(Course course) {
-        courses.add(course);
-    }
-
-    public void removeCourse(Course course) {
-        courses.remove(course);
-    }
-
-    public Course findCourseById(int id) {
-        for (Course course : courses) {
-            if (course.getId() == id)
-                return course;
-        }
-        return null;
-    }
-
-    // ===== Managers =====
     public List<Manager> getManagers() {
         return managers;
     }
 
-    public void addManager(Manager manager) {
-        managers.add(manager);
-    }
-
-    public void removeManager(Manager manager) {
-        managers.remove(manager);
-    }
-
-    public Manager findManagerById(int id) {
-        for (Manager manager : managers) {
-            if (manager.getId() == id)
-                return manager;
-        }
-        return null;
-    }
-
-    // ===== Admins =====
     public List<Admin> getAdmins() {
         return admins;
     }
 
-    public void addAdmin(Admin admin) {
-        admins.add(admin);
-    }
-
-    public void removeAdmin(Admin admin) {
-        admins.remove(admin);
-    }
-
-    public Admin findAdminById(int id) {
-        for (Admin admin : admins) {
-            if (admin.getId() == id)
-                return admin;
-        }
-        return null;
-    }
-
-    // ===== Researchers =====
     public List<Researcher> getResearchers() {
         return researchers;
     }
 
-    public void addResearcher(Researcher researcher) {
-        researchers.add(researcher);
-    }
-
-    public void removeResearcher(Researcher researcher) {
-        researchers.remove(researcher);
-    }
-
-    public Researcher findResearcherById(int id) {
-        for (Researcher researcher : researchers) {
-            if (researcher.getId() == id)
-                return researcher;
-        }
-        return null;
-    }
-
-    // ===== Research Projects =====
     public List<ResearchProject> getProjects() {
         return projects;
     }
 
-    public void addProject(ResearchProject project) {
-        projects.add(project);
+    public List<Course> getCourses() {
+        return courses;
     }
 
-    public void removeProject(ResearchProject project) {
-        projects.remove(project);
-    }
+    public void addUser(User user) throws AccessDeniedException {
+        User currentUser = AuthService.getInstance().getCurrentUser();
 
-    public ResearchProject findProjectById(int id) {
-        for (ResearchProject project : projects) {
-            if (project.getId() == id)
-                return project;
+        if (user instanceof Teacher) {
+            if (!(currentUser instanceof Manager || currentUser instanceof Admin)) {
+                throw new AccessDeniedException("Only Manager or Admin can add Teachers!");
+            }
+            teachers.add((Teacher) user);
+
+        } else if (user instanceof Admin) {
+            if (!(currentUser instanceof Admin)) {
+                throw new AccessDeniedException("Only Admin can add Admins!");
+            }
+            admins.add((Admin) user);
+
+        } else if (user instanceof Manager) {
+            if (!(currentUser instanceof Admin)) {
+                throw new AccessDeniedException("Only Admin can add Managers!");
+            }
+            managers.add((Manager) user);
+
+        } else if (user instanceof Student) {
+            students.add((Student) user);
         }
-        return null;
+
+        System.out.println(user.getName() + " added successfully!");
     }
 
-    // ===== Utility Methods =====
-    /**
-     * Clear all data from storage.
-     */
-    public void clearAllData() {
-        students.clear();
-        employees.clear();
-        teachers.clear();
-        courses.clear();
-        managers.clear();
-        admins.clear();
-        researchers.clear();
-        projects.clear();
+    public void removeUser(User user) throws AccessDeniedException {
+        User currentUser = AuthService.getInstance().getCurrentUser();
+
+        if (user instanceof Teacher) {
+            if (!(currentUser instanceof Manager || currentUser instanceof Admin))
+                throw new AccessDeniedException("Only Manager or Admin can remove Teachers!");
+            teachers.remove(user);
+
+        } else if (user instanceof Admin) {
+            if (!(currentUser instanceof Admin))
+                throw new AccessDeniedException("Only Admin can remove Admins!");
+            admins.remove(user);
+
+        } else if (user instanceof Manager) {
+            if (!(currentUser instanceof Admin))
+                throw new AccessDeniedException("Only Admin can remove Managers!");
+            managers.remove(user);
+
+        } else if (user instanceof Student) {
+            students.remove(user);
+        }
+
+        System.out.println(user.getName() + " removed successfully!");
+    }
+
+    public User findUserById(int id) {
+        for (Student s : students)
+            if (s.getId() == id)
+                return s;
+        for (Teacher t : teachers)
+            if (t.getId() == id)
+                return t;
+        for (Admin a : admins)
+            if (a.getId() == id)
+                return a;
+        for (Manager m : managers)
+            if (m.getId() == id)
+                return m;
+        return null;
     }
 
     /**
@@ -234,9 +149,10 @@ public class DataStorage {
      *
      * @return total count
      */
+
     public int getTotalCount() {
-        return students.size() + employees.size() + teachers.size() +
-               courses.size() + managers.size() + admins.size() +
-               researchers.size() + projects.size();
+        return students.size() + teachers.size() +
+                courses.size() + managers.size() + admins.size() +
+                researchers.size() + projects.size();
     }
 }

@@ -1,6 +1,10 @@
+package research;
+
 import java.io.*;
 import java.util.*;
-package research;
+
+import users.*;
+
 /**
  * Represents a research project with participants and papers.
  */
@@ -14,17 +18,26 @@ public class ResearchProject {
     /**
      * Default constructor
      */
-    public ResearchProject() {}
+    public ResearchProject() {
+    }
 
     public ResearchProject(int projectId, String topic) {
         this.projectId = projectId;
         this.topic = topic;
     }
-    public int getProjectId()    { return projectId; }
-    public String getTopic()     { return topic; }
-    public void setTopic(String t) { this.topic = t; }
 
-   
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String t) {
+        this.topic = t;
+    }
+
     public void addParticipant(User user) {
         if (user != null && !participants.contains(user)) {
             participants.add(user);
@@ -66,6 +79,6 @@ public class ResearchProject {
     @Override
     public String toString() {
         return "ResearchProject{id=" + projectId + ", topic=" + topic +
-               ", participants=" + participants.size() + ", papers=" + papers.size() + "}";
+                ", participants=" + participants.size() + ", papers=" + papers.size() + "}";
     }
 }
