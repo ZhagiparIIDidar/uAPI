@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.*;
-
+package academic;
 /**
  * Represents a student's mark in a course.
  * Total = firstAttestation (30%) + secondAttestation (30%) + finalExam (40%)

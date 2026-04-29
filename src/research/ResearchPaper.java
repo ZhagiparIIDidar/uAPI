@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.*;
-
+package research;
 /**
  * Represents a scientific research paper.
  */
