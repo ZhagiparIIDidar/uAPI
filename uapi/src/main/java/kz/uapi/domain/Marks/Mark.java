@@ -2,6 +2,20 @@ package kz.uapi.domain.Marks;
 
 import java.time.LocalDateTime;
 
+/**
+ * Класс, представляющий оценку (отметку) студента за курс.
+ * Содержит информацию об оценке, дате выставления и привязке к студенту и
+ * курсу.
+ * 
+ * <p>
+ * Оценка хранит числовое значение (grade) в диапазоне, зависящем от системы
+ * оценивания учреждения.
+ * </p>
+ * 
+ * @author UAPI System
+ * @version 1.0
+ * @since 1.0
+ */
 public class Mark {
 
     private int markId;

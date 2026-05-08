@@ -2,6 +2,21 @@ package kz.uapi.users;
 
 import kz.uapi.abs_class.User;
 
+/**
+ * Класс, представляющий студента в системе управления университетом.
+ * Содержит информацию об успеваемости, специальности, курсе и возможности
+ * проведения исследований.
+ * 
+ * <p>
+ * Студент может быть обычным студентом или исследователем (если
+ * {@code isResearcher = true}).
+ * </p>
+ * 
+ * @author UAPI System
+ * @version 1.0
+ * @since 1.0
+ * @see User
+ */
 public class Student extends User {
 
     private double gpa;

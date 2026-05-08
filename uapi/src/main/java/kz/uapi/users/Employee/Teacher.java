@@ -7,6 +7,22 @@ import kz.uapi.interfaces.Researcher;
 import kz.uapi.abs_class.Employee;
 import kz.uapi.enums.TeacherTitle;
 
+/**
+ * Класс, представляющий преподавателя в системе.
+ * Преподаватель может быть лектором, ассистентом, доцентом или профессором.
+ * Профессоры могут проводить научные исследования.
+ * 
+ * <p>
+ * Каждый преподаватель имеет рейтинг, h-индекс и список специализаций.
+ * </p>
+ * 
+ * @author UAPI System
+ * @version 1.0
+ * @since 1.0
+ * @see Employee
+ * @see Researcher
+ * @see TeacherTitle
+ */
 public class Teacher extends Employee implements Researcher {
 
     private TeacherTitle title;

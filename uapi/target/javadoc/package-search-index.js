@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"kz.uapi.abs_class"},{"l":"kz.uapi.database"},{"l":"kz.uapi.domain.academic"},{"l":"kz.uapi.domain.Marks"},{"l":"kz.uapi.users"}];updateSearchResults();

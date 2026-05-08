@@ -2,6 +2,15 @@ package kz.uapi.abs_class;
 
 import java.time.LocalDateTime;
 
+/**
+ * Абстрактный базовый класс для всех пользователей системы.
+ * Служит основой для иерархии пользователей: студентов, преподавателей,
+ * администраторов и других.
+ * 
+ * @author UAPI System
+ * @version 1.0
+ * @since 1.0
+ */
 public abstract class User {
 
     private String login;

@@ -2,6 +2,22 @@ package kz.uapi.domain.academic;
 
 import kz.uapi.enums.LessonType;
 
+/**
+ * Класс, представляющий отдельное занятие (лекцию, практику или семинар) в
+ * рамках курса.
+ * Содержит информацию о теме, используемых материалах и типе занятия.
+ * 
+ * <p>
+ * Каждое занятие принадлежит одному курсу и имеет определённый тип
+ * ({@link LessonType}).
+ * </p>
+ * 
+ * @author UAPI System
+ * @version 1.0
+ * @since 1.0
+ * @see LessonType
+ * @see Course
+ */
 public class Lesson {
 
     private int lessonId;
